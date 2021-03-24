@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { signIn, signOut, useSession } from 'next-auth/client'
+import { Button } from 'antd';
 import styles from './header.module.css'
 
 // The approach used in this component shows how to built a sign in and sign out
@@ -19,15 +20,16 @@ export default function Header () {
           {!session && <>
             <span className={styles.notSignedInText}>You are not signed in</span>
             <a
-                href={`/api/auth/signin`}
-                className={styles.buttonPrimary}
-                onClick={(e) => {
-                  e.preventDefault()
-                  signIn()
-                }}
-              >
-                Sign in
-              </a>
+              href={`/api/auth/signin`}
+              className={styles.buttonPrimary}
+              onClick={(e) => {
+                e.preventDefault()
+                signIn()
+              }}
+            >
+              Sign in
+            </a>
+            <Button type="primary">Primary Button</Button>
           </>}
           {session && <>
             {session.user.image && <span style={{backgroundImage: `url(${session.user.image})` }} className={styles.avatar}/>}
