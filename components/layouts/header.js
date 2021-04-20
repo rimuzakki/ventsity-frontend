@@ -29,7 +29,7 @@ export default function Header () {
             >
               Sign in
             </a>
-            <Button type="primary">Primary Button</Button>
+            {/* <Button type="primary">Primary Button</Button> */}
           </>}
           {session && <>
             {session.user.image && <span style={{backgroundImage: `url(${session.user.image})` }} className={styles.avatar}/>}

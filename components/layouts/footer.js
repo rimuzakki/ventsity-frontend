@@ -1,6 +1,6 @@
 import Link from "next/link"
 import styles from "./footer.module.css"
-import { dependencies } from "../package.json"
+import { dependencies } from "package.json"
 
 export default function Footer() {
   return (
