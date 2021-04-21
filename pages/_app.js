@@ -1,6 +1,7 @@
 import App from 'next/app';
 import { Provider as AuthProvider, getSession } from 'next-auth/client'
-import '../styles/globals.css'
+import 'styles/variables.css'
+import 'styles/globals.css'
 
 function MyApp({ Component, pageProps, session }) {
   return (

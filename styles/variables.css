@@ -1,0 +1,10 @@
+:root {
+  --cloud: #f3f7f9;
+  --orange: #fd6542;
+  --text-color: #333;
+  --border-color: #f0f0f0;
+  --btn-border: #d9d9d9;
+  --btn-border-hover: #40a9ff;
+  --font: 'Lato', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}

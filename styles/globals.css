@@ -1,30 +1,155 @@
+html,
 body {
-  font-family: -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  padding: 0 1rem 1rem 1rem;
-  max-width: 680px;
-  margin: 0 auto;
-  background: #fff;
-  color: #333;
-}
-
-li,
-p {
-  line-height: 1.5rem;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font);
+  background-color: var(--cloud);
 }
 
 a {
-  font-weight: 500;
+  color: inherit;
+  text-decoration: none;
 }
 
-hr {
-  border: 1px solid #ddd;
+* {
+  box-sizing: border-box;
 }
 
-iframe {
-  background: #ccc;
-  border: 1px solid #ccc;
-  height: 10rem;
+h1, h2, h3, h4, h5 {
+  font-weight: 300;
+  color: var(--text-color);
+  margin-top: 0px;
+  margin-bottom: 8px;
+}
+
+p {
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1.5em;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 42px;
+}
+
+h2 {
+  margin: 8px 0;
+}
+
+.container {
   width: 100%;
-  border-radius: .5rem;
-  filter: invert(1);
+  margin: 0 auto;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .container {
+    width: 752px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .container {
+    width: 976px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1176px;
+  }
+}
+
+.f {
+  display: flex;
+}
+
+.f-ctr {
+  justify-content: center;
+}
+
+.mdl {
+  align-items: center;
+}
+
+.f-c {
+  flex-direction: column;
+}
+
+.f-btw {
+  justify-content: space-between;
+}
+
+.f-sar {
+  justify-content: space-around;
+}
+
+.f-rht {
+  justify-content: flex-end;
+}
+
+.f-end {
+  align-items: flex-end;
+}
+
+.f-start {
+  align-items: flex-start;
+}
+
+.f-w {
+  flex-wrap: wrap;
+}
+
+.subtitle {
+  font-size: 16px;
+}
+
+.bolder {
+  font-weight: 400
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.text-primary {
+  color: var(--orange);
+}
+
+.centered {
+  text-align: center;
+}
+
+.wrapper {
+  background: #fff;
+  padding: 13px 25px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link {
+  width: fit-content;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.link:hover {
+  transition: all .3s;
+  text-decoration: underline;
 }
