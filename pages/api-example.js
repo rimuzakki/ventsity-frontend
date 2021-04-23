@@ -1,4 +1,5 @@
 import Layout from 'components/layouts/layout'
+import User from 'components/user'
 
 export default function Page () {
   return (
@@ -11,7 +12,11 @@ export default function Page () {
       <iframe src="/api/examples/session"/>
       <h2>JSON Web Token</h2>
       <p>/api/examples/jwt</p>
-      <iframe src="/api/examples/jwt"/>
+      {/* <iframe src="/api/examples/jwt"/> */}
+
+      <h2>Users Me</h2>
+      <p>/api/examples/user</p>
+      <User />
     </Layout>
   )
 }
