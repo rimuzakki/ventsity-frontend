@@ -27,8 +27,9 @@ export default function User() {
   const path = '/tests'
   const url = config.api_url + path
   const { data, error } = useSWR(url, fetcher)
+  console.log("🚀 ~ file: user.js ~ line 30 ~ User ~ data", data)
+  console.log("🚀 ~ file: user.js ~ line 30 ~ User ~ error", error)
 
-  console.log(error)
 
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
