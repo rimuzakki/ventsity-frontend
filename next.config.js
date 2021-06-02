@@ -13,9 +13,4 @@ module.exports = withAntdLess({
   webpack(config) {
     return config;
   },
-
-  future: {
-    // if you use webpack5
-    webpack5: true,
-  },
 });

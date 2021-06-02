@@ -1,7 +1,7 @@
 import App from 'next/app';
 import { Provider as AuthProvider, getSession } from 'next-auth/client'
 import axios from 'axios'
-require('styles/global.less')
+import 'styles/globals.less'
 
 function MyApp({ Component, pageProps, session }) {
   console.log('session', session)
