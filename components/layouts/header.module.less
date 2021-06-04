@@ -1,5 +1,5 @@
 /* Set min-height to avoid page reflow while session loading */
-.signedInStatus {
+/* .signedInStatus {
   display: block;
   min-height: 4rem;
   width: 100%;
@@ -37,20 +37,7 @@
   line-height: 1.3rem;
 }
 
-.signedInText {
-  padding-top: 0rem;
-  left: 4.6rem;
-}
 
-.avatar {
-  border-radius: 2rem;
-  float: left;
-  height: 2.8rem;
-  width: 2.8rem;
-  background-color: white;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
 
 .button,
 .buttonPrimary {
@@ -89,4 +76,43 @@
 .navItem {
   display: inline-block;
   margin-right: 1rem;
+} */
+
+.mainHeader {
+  background-color: #FFF;
+  z-index: 9;
+  h1 {
+    display: flex;
+    margin: 0px;
+    .logo {
+      font-size: 24px;
+      letter-spacing: 1px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+    }
+  }
+}
+.menuRow {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+.ctaHeader {
+  padding: 0px 16px;
+  &:last-child {
+    padding-right: 0px;
+  }
+  .ctaLink {
+    color: #4E4B66;
+    text-decoration: none;
+    &:hover {
+      color: #6E7191;
+    }
+  }
+}
+.avatar {
+  margin-right: 8px;
+}
+.signedInText {
+  padding-right: 8px;
 }

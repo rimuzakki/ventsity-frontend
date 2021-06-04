@@ -1,9 +1,9 @@
-import Layout from 'components/layouts/layout'
+import MainLayout from 'components/layouts/mainLayout'
 import User from 'components/user'
 
 export default function Page () {
   return (
-    <Layout>
+    <MainLayout>
       <h1>API Example</h1>
       <p>The examples below show responses from the example API endpoints.</p>
       <p><em>You must be signed in to see responses.</em></p>
@@ -17,6 +17,6 @@ export default function Page () {
       <h2>Users Me</h2>
       <p>/api/examples/user</p>
       <User />
-    </Layout>
+    </MainLayout>
   )
 }

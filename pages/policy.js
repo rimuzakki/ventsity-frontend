@@ -1,8 +1,8 @@
-import Layout from 'components/layouts/layout'
+import MainLayout from 'components/layouts/mainLayout'
 
 export default function Page () {
   return (
-    <Layout>
+    <MainLayout>
       <p>
         This is an example site to demonstrate how to use <a href={`https://next-auth.js.org`}>NextAuth.js</a> for authentication.
       </p>
@@ -25,6 +25,6 @@ export default function Page () {
         and is not passed to any third party services, other than via SMTP or OAuth for the
         purposes of authentication.
       </p>
-    </Layout>
+    </MainLayout>
   )
 }

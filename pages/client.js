@@ -1,8 +1,8 @@
-import Layout from 'components/layouts/layout'
+import MainLayout from 'components/layouts/mainLayout'
 
 export default function Page () {
   return (
-    <Layout>
+    <MainLayout>
       <h1>Client Side Rendering</h1>
       <p>
         This page uses the <strong>useSession()</strong> React Hook in the <strong>&lt;Header/&gt;</strong> component.
@@ -17,6 +17,6 @@ export default function Page () {
       <p>
         The disadvantage of <strong>useSession()</strong> is that it requires client side JavaScript.
       </p>
-    </Layout>
+    </MainLayout>
   )
 }
