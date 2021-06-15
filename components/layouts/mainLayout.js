@@ -7,12 +7,12 @@ const { Content } = Layout;
 
 export default function MainLayout ({children}) {
   return (
-    <Layout className="mainLayout">
-      <Head title="Ventsity" />
+    <Layout className='mainLayout'>
+      <Head title='Ventsity' />
 
       <Header/>
 
-      <Content>
+      <Content className='mainContent'>
         {children}
       </Content>
 

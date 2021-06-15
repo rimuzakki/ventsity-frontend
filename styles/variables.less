@@ -10,8 +10,50 @@
 // -------- Antd Colors -----------
 @secondary-color: #1CC8EE;
 @success-color: #52c41a;
-@link-color: #5F2EEA;
+@off-white: #FCFCFC;
+@link-color: @primary-color;
 @text-selection-bg: @link-color;
 @text-color: #4E4B66;
+@title-color: #14142B;
+@label-color: #6E7191;
+@placeholder-color: #A0A3BD;
+@border-color: #D9DBE9;
 
 @layout-header-height: 55px;
+@height-base: 38px;
+
+// media query
+@container-max-width-sm: 540px;
+@container-max-width-md: 720px;
+@container-max-width-lg: 960px;
+@container-max-width-xl: 1140px;
+@container-max-width-xxl: 1320px;
+
+@screen-min-width-sm: 576px;
+@screen-min-width-md: 768px;
+@screen-min-width-lg: 992px;
+@screen-min-width-xl: 1200px;
+@screen-min-width-xxl: 1400px;
+
+@desktop:   ~"only screen and (min-width: @{screen-min-width-lg}) and (max-width: @{screen-min-width-xxl})";
+@tablet:    ~"only screen and (min-width: @{screen-min-width-sm}) and (max-width: @{screen-min-width-lg})";
+@phone:    ~"only screen and (max-width: @{screen-min-width-sm})";
+@wide-screen: ~'(min-width: @{screen-min-width-xxl})';
+@wide-screen-down: ~'(max-width: @{screen-min-width-xxl})';
+@desktop-down: ~'(max-width: @{screen-min-width-xl})';
+@tablet-down: ~'(max-width: @{screen-min-width-lg})';
+@phone-down: ~'(max-width: @{screen-min-width-md})';
+@small-phone-down: ~'(max-width: @{screen-min-width-sm})';
+
+// Common
+@font-size-base: 16px;
+@border-radius-base: 8px;
+@border-radius-sm: @border-radius-base;
+@box-shadow-base: 0px 3px 6px -4px rgba(0, 0, 0, 0.12), 
+                  0px 6px 16px rgba(0, 0, 0, 0.08), 
+                  0px 9px 28px 8px rgba(0, 0, 0, 0.05);
+
+// Button
+@btn-padding-horizontal-lg: 32px;
+@btn-height-lg: 54px;
+@btn-font-size-lg: 18px;

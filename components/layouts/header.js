@@ -1,105 +1,152 @@
 import Link from 'next/link'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { signIn, signOut, useSession } from 'next-auth/client'
-import { Layout, Row, Col,Menu, Dropdown, Avatar, Button } from 'antd'
+import { Layout, Row, Col, Input, Grid, Button, Drawer, Menu, Avatar } from 'antd'
+import Container from 'components/elements/container/container'
+import RightMenu from './menu/rightMenu'
 import cx from 'classnames'
-import { CaretDownOutlined } from '@ant-design/icons'
 import s from './header.module.less'
 
-const { Header } = Layout;
+const { Header } = Layout
+const { Search } = Input
+const { useBreakpoint } = Grid
 
-// The approach used in this component shows how to built a sign in and sign out
-// component that works on pages which support both client and server side
-// rendering, and avoids any flash incorrect content on initial page load.
 export default function MainHeader () {
+  
   const [ session, loading ] = useSession()
-  console.log('sessionHeader', session)
+  const { asPath } = useRouter()
+  const { xs, sm, md } = useBreakpoint();
+  console.log('breakpoint', xs, sm, md)
+  // console.log('sessionHeader', session)
+  // console.log('path', asPath)
 
-  const menu = () => {
+  const [draweVisible, setDrawerVisible] = useState(false)
+
+  const navbarBrand = () => {
     return (
-      <Menu>
-        <Menu.Item>
-          <a
-            href={`/api/auth/signout`}
-            className={s.button}
-            onClick={(e) => {
-              e.preventDefault()
-              signOut()
-            }}
-          >
-            Sign out
-          </a>
-        </Menu.Item>
-      </Menu>
+      <h1>
+        <a href='/' className={s.logo}>
+          Ventsity
+        </a>
+      </h1>
     )
   }
+
+  const onSearch = value => console.log(value);
+
+  const searchMain = () => {
+    return (
+      asPath !== '/' &&
+      <Search className='customSearch' placeholder="input search text" allowClear onSearch={onSearch} bordered={false} />
+    )
+  }
+
+  const viewProfile = () => {
+    return (
+      <div className={cx('flex align-items-center justify-content-between', s.profileWrapper)}>
+        <span className={s.signedInText}>
+          {session.user.name || session.user.email}
+        </span>
+        {
+          session.user.image && 
+          <Avatar src={session.user.image} className={s.avatar} />
+        }
+      </div>
+    )
+  }
+
+  const viewMenuSide = () => {
+    return (
+      <>
+        { session && viewProfile()}
+        <Menu mode='inline' className={s.menuSideWrapper}>
+          <Menu.Item key='home'>
+            <a href='/'>Home</a>
+          </Menu.Item>
+          
+          {!session && <>
+            <Menu.Item key='login'>
+              <a
+                href={`/api/auth/signin`}
+                className={s.ctaLink}
+                onClick={(e) => {
+                  e.preventDefault()
+                  signIn()
+                }}
+              >
+                Sign in
+              </a>
+            </Menu.Item>
+          </>}
+
+          <Menu.Item key='cevent'>
+            <a href="">Create Event</a>
+          </Menu.Item>
+
+          {session && <>
+            <Menu.Item key='logout' className={s.menuLogout}>
+              <a
+                href={`/api/auth/signout`}
+                className={s.button}
+                onClick={(e) => {
+                  e.preventDefault()
+                  signOut()
+                }}
+              >
+                Sign out
+              </a>
+            </Menu.Item>
+          </>}
+        </Menu>
+      </>
+    )
+  }
+
+  const onShowDrawer = () => {
+    setDrawerVisible(true)
+  }
+
+  const onCloseDrawer = () => {
+    setDrawerVisible(false)
+  }
+
   
   return (
-    <Header className={s.mainHeader}>
-      <noscript>
-        <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
-      </noscript>
-      <Row justify="space-between" className='flex align-items-center'>
-        <Col xs={24} sm={24} md={6} lg={6} xl={5}>
-          <h1>
-            <a href='/' className={s.logo}>
-              Ventsity
-            </a>
-          </h1>
-        </Col>
-        <Col xs={0} sm={0} md={18} lg={18} xl={19} className={cx(s.menuRow, 'justify-content-end')}>
-          <div className={s.ctaHeader}>
-            <a href='#' className={s.ctaLink}>
-              Create Event
-            </a>
-            {/* <Button type="primary">Primary Button</Button> */}
-          </div>
-          <div className={s.signedInStatus}>
-            <div className={`nojs-show ${(!session && loading) ? s.loading : s.loaded}`}>
-              {!session && <>
-                <div className={s.ctaHeader}>
-                  <a
-                    href={`/api/auth/signin`}
-                    className={s.ctaLink}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      signIn()
-                    }}
-                  >
-                    Sign in
-                  </a>
-                </div>
-              </>}
-              {session && <>
-                <div className={s.ctaHeader}>
-                  <Dropdown overlay={menu}>
-                    <a className={cx('ant-dropdown-link flex align-items-center', s.ctaLink)} onClick={e => e.preventDefault()}>
-                      {
-                        session.user.image && 
-                        // <span style={{backgroundImage: `url(${session.user.image})` }} className={s.avatar}/>
-                        <Avatar src={session.user.image} className={s.avatar} />
-                      }
-                      <span className={s.signedInText}>
-                        {session.user.name || session.user.email}
-                      </span>
-                      <CaretDownOutlined />
-                    </a>
-                  </Dropdown>
-                </div>
-              </>}
-            </div>
-          </div>
-        </Col>
-      </Row>
-      
-      {/* <nav>
-        <ul className={s.navItems}>
-          <li className={s.navItem}><Link href="/"><a>Home</a></Link></li>
-          <li className={s.navItem}><Link href="/client"><a>Client</a></Link></li>
-          <li className={s.navItem}><Link href="/server"><a>Server</a></Link></li>
-          <li className={s.navItem}><Link href="/protected"><a>Protected</a></Link></li>
-          <li className={s.navItem}><Link href="/api-example"><a>API</a></Link></li>
-        </ul>
-      </nav> */}
+    <Header className={asPath !== '/' ? cx(s.mainHeader, s.headerWhite) : cx(s.mainHeader)}>
+      <Container>
+        <noscript>
+          <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
+        </noscript>
+        <Row justify="space-between" className={cx('flex align-items-center', s.rowHeader)} style={{ minHeight: 62 }}>
+          <Col xs={20} sm={6} md={6} lg={4} className={s.navbarBrandWrapper}>
+            {navbarBrand()}
+          </Col>
+          <Col xs={24} sm={12} md={12} lg={14} className={cx('flex align-items-center', s.searchMainWrapper)}>
+            {searchMain()}
+          </Col>
+          <Col xs={4} sm={6} md={6} lg={6} className={cx(s.menuWrapper, 'justify-content-end')}>
+            {
+              (xs || sm && !md) &&
+              <Button className={s.barsMenu} type="primary" onClick={onShowDrawer}>
+                <span className={s.barsBtn}></span>
+              </Button>
+            }
+            {
+              md &&
+              <RightMenu />
+            }
+            <Drawer
+              placement="right"
+              closable={false}
+              onClose={onCloseDrawer}
+              visible={draweVisible}
+            >
+              {viewMenuSide()}
+            </Drawer>
+          </Col>
+        </Row>
+      </Container>
     </Header>
   )
 }

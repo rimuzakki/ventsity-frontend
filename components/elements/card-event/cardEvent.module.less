@@ -1,0 +1,44 @@
+.cardEvent {
+  background-color: var(--off-white);
+  border-radius: var(--border-radius-base);
+  cursor: pointer;
+  margin-bottom: 16px;
+  height: 350px;
+  box-shadow: var(--box-shadow-base);
+}
+.cardEventImage {
+  position: relative;
+  img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--border-radius-base) var(--border-radius-base) 0px 0px;
+  }
+  .tagEvent {
+    position: absolute;
+    left: 12px;
+    bottom: 8px;
+    border-radius: 4px;
+  }
+}
+.cardEventContent {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 12px;
+  .dateTimeEvent {
+    margin-bottom: 8px;
+  }
+  .titleEvent {
+    font-weight: bold;
+    margin-bottom: 16px;
+    height: 50px;
+    overflow: hidden;
+  }
+  .organizerEvent {
+    color: var(--label-color);
+    margin-bottom: 8px;
+    height: 50px;
+    display: flex;
+    align-items: flex-end;
+  }
+}

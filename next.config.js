@@ -1,17 +1,15 @@
-const withAntdLess = require('next-plugin-antd-less');
+const withLess = require("next-with-less");
+const path = require("path");
 
-module.exports = withAntdLess({
-  modifyVars: { '@primary-color': '#04f', },
-  lessVarsFilePath: './styles/variables.less',
-  // cssLoaderOptions: {},
-  
-  // Other NextConfig Here...
-  webpack(config) {
-    return config;
-  },
+const pathToLessFileWithVariables = path.resolve("./styles/variables.less")
 
-  // NextFuture
+module.exports = withLess({
   future: {
     webpack5: true,
+  },
+
+  lessLoaderOptions: {
+    /* ... */
+    additionalData: content =>`${content}\n\n@import '${pathToLessFileWithVariables}';`,
   },
 });

@@ -1,13 +1,6 @@
-import { Row, Col, Button } from 'antd'
-import cx from 'classnames'
 import MainLayout from 'components/layouts/mainLayout'
 import Container from 'components/elements/container/container'
-import Search from 'components/elements/search/search'
-import UpcomingEvent from 'components/modules/upcoming-event/upcomingEvent'
-import EventCategories from 'components/modules/event-categories/eventCategories'
-import { RightOutlined } from '@ant-design/icons'
-
-import s from './index.module.less'
+import EventListWrapper from "components/modules/events/eventListWrapper"
 
 const dataEvents = [
   {
@@ -202,115 +195,14 @@ const dataEvents = [
   }
 ]
 
-const dataCategories = [
-  {
-    id: 1,
-    title: 'Programming',
-    slug: 'programming',
-    cover_image: 'assets/category-image.png'
-  },
-  {
-    id: 2,
-    title: 'Writing',
-    slug: 'writing',
-    cover_image: 'assets/category-image.png'
-  },
-  {
-    id: 3,
-    title: 'Sport',
-    slug: 'sport',
-    cover_image: 'assets/category-image.png'
-  },
-  {
-    id: 4,
-    title: 'Photography',
-    slug: 'photography',
-    cover_image: 'assets/category-image.png'
-  },
-  {
-    id: 5,
-    title: 'Music',
-    slug: 'music',
-    cover_image: 'assets/category-image.png'
-  },
-  {
-    id: 6,
-    title: 'Learning',
-    slug: 'learning',
-    cover_image: 'assets/category-image.png'
-  },
-  {
-    id: 7,
-    title: 'Outdoor',
-    slug: 'outdoor',
-    cover_image: 'assets/category-image.png'
-  },
-  {
-    id: 8,
-    title: 'Arts',
-    slug: 'arts',
-    cover_image: 'assets/category-image.png'
-  },
-  {
-    id: 9,
-    title: 'Career Development',
-    slug: 'careerdevelopment',
-    cover_image: 'assets/category-image.png'
-  }
-]
-
-export default function Page () {
+function Events() {
   return (
-    <>
-      <div className={cx('relative', s.blobWrapper)}>
-        <img src='assets/Vector.svg' className={cx('absolute', s.bg1)} />
-        <img src='assets/Vector-1.svg' className={cx('absolute', s.bg2)} />
-        <img src='assets/Vector-2.svg' className={cx('absolute', s.bg3)} />
-        <div className={s.indexWrapper}>
-          <MainLayout>
-            <div className={cx('section', s.sectionHero)}>
-              <Container>
-                <Row>
-                  <Col sm={24} md={12}>
-                    <div className={cx('heroText', s.heroText)}>
-                      <h1>Join events in the university easily</h1>
-                    </div>
-                    <Button size='large' type="primary" className={s.ctaButton}>Browse events <RightOutlined /></Button>
-                  </Col>
-                  <Col sm={24} md={12} className='flex align-items-center'>
-                    <img src='assets/illustration1.svg' className={cx('homeIllu', s.homeIllustration)} />
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-
-            <div className={cx('section', s.sectionSearch)}>
-              <Search />
-            </div>
-
-            <div className={cx('section', s.sectionUpcomingEvent)}>
-              <Container>
-                <Row>
-                  <Col span={24}>
-                    <UpcomingEvent data={dataEvents} />
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-
-            <div className={cx('section', s.sectionCategoriesEvent)}>
-              <Container>
-                <Row>
-                  <Col span={24}>
-                    <EventCategories data={dataCategories} />
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-            
-          </MainLayout>
-        </div>
-      </div>
-    </>
+    <MainLayout>
+      <Container>
+        <EventListWrapper data={dataEvents} />
+      </Container>
+    </MainLayout>
   )
 }
+
+export default Events

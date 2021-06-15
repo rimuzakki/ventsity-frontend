@@ -13,12 +13,18 @@
     "axios": "^0.21.1",
     "babel-plugin-import": "^1.13.3",
     "classnames": "^2.3.1",
+    "less": "^4.1.1",
+    "less-loader": "^9.0.0",
+    "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "next": "latest",
     "next-auth": "^3.14.7",
     "next-plugin-antd-less": "^1.2.2",
+    "next-with-less": "^0.3.0",
+    "path": "^0.12.7",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-multi-carousel": "^2.6.3",
     "swr": "^0.5.5",
     "unstated-next": "^1.1.0"
   }

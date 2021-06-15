@@ -1,0 +1,31 @@
+.filterEventWrapper {
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto;
+}
+.filterDate,
+.filterType,
+.filterCategory {
+  margin-right: 32px;
+  a, input {
+    color: var(--title-color);
+  }
+}
+.resetFilter {
+  a {
+    color: var(--label-color);
+    font-weight: bold;
+  }
+}
+@media @phone-down {
+  .filterDate {
+    min-width: 210px;
+  }
+  .filterType {
+    min-width: 170px;
+  }
+  .filterCategory {
+    min-width: 200px;
+  }
+}
