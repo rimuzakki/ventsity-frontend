@@ -1,4 +1,4 @@
-import MainLayout from 'components/layouts/mainLayout'
+import Head from 'components/layouts/head'
 import Container from 'components/elements/container/container'
 import EventListWrapper from "components/modules/events/eventListWrapper"
 
@@ -195,14 +195,16 @@ const dataEvents = [
   }
 ]
 
-function Events() {
+function Event() {
   return (
-    <MainLayout>
+    <>
+      <Head title='Find Events | Ventsity' />
+
       <Container>
         <EventListWrapper data={dataEvents} />
       </Container>
-    </MainLayout>
+    </>
   )
 }
 
-export default Events
+export default Event

@@ -1,5 +1,5 @@
 import { Layout } from 'antd'
-import Header from 'components/layouts/header'
+import MainHeader from 'components/layouts/mainHeader'
 import Footer from 'components/layouts/footer'
 import Head from 'components/layouts/head'
 
@@ -10,7 +10,7 @@ export default function MainLayout ({children}) {
     <Layout className='mainLayout'>
       <Head title='Ventsity' />
 
-      <Header/>
+      <MainHeader/>
 
       <Content className='mainContent'>
         {children}

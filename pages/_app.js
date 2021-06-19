@@ -1,12 +1,15 @@
 import App from 'next/app';
 import { Provider as AuthProvider, getSession } from 'next-auth/client'
 import axios from 'axios'
+import MainLayout from 'components/layouts/mainLayout'
 // require('styles/global.less')
+import { useRouter } from 'next/router'
 import 'antd/dist/antd.less'
 import 'styles/global.less'
 
 function MyApp({ Component, pageProps, session }) {
   console.log('session', session)
+  const { asPath } = useRouter()
 
   if (session?.jwt) {
     axios.defaults.headers.common['Authorization'] = 'bearer ' + session.jwt;
@@ -14,9 +17,16 @@ function MyApp({ Component, pageProps, session }) {
 
   return (
     <AuthProvider
-      session={session} 
-    >
-      <Component {...pageProps} />
+        session={session} 
+      >
+        {
+          asPath === '/' ?
+          <Component {...pageProps} />
+          :
+          <MainLayout>
+            <Component {...pageProps} />
+          </MainLayout>
+        }
     </AuthProvider>
   )
 }

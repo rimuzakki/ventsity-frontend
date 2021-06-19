@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { signIn, signOut, useSession } from 'next-auth/client'
@@ -12,7 +11,7 @@ const { Header } = Layout
 const { Search } = Input
 const { useBreakpoint } = Grid
 
-export default function MainHeader () {
+function MainHeader () {
   
   const [ session, loading ] = useSession()
   const { asPath } = useRouter()
@@ -113,7 +112,10 @@ export default function MainHeader () {
 
   
   return (
-    <Header className={asPath !== '/' ? cx(s.mainHeader, s.headerWhite) : cx(s.mainHeader)}>
+    <Header 
+      className={asPath !== '/' ? cx(s.mainHeader, s.headerWhite) : cx(s.mainHeader)}
+      // className={s.mainHeader}
+    >
       <Container>
         <noscript>
           <style>{`.nojs-show { opacity: 1; top: 0; }`}</style>
@@ -125,7 +127,7 @@ export default function MainHeader () {
           <Col xs={24} sm={12} md={12} lg={14} className={cx('flex align-items-center', s.searchMainWrapper)}>
             {searchMain()}
           </Col>
-          <Col xs={4} sm={6} md={6} lg={6} className={cx(s.menuWrapper, 'justify-content-end')}>
+          <Col xs={4} sm={6} md={6} lg={6} className={cx(s.menuWrapper, 'flex align-items-center justify-content-end')}>
             {
               (xs || sm && !md) &&
               <Button className={s.barsMenu} type="primary" onClick={onShowDrawer}>
@@ -150,3 +152,5 @@ export default function MainHeader () {
     </Header>
   )
 }
+
+export default MainHeader
