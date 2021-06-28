@@ -32,7 +32,7 @@ function UpcomingEvent(props) {
     <div className={cx(s.upcomingEventWrapper, 'upcomingEventWrapper')}>
       <TitleSection
         title='Upcoming Event'
-        loadMoreTarget='/event'
+        loadMoreTarget='/events'
         loadMoreText='See all'
       />
 

@@ -16,7 +16,7 @@ function MainHeader () {
   const [ session, loading ] = useSession()
   const { asPath } = useRouter()
   const { xs, sm, md } = useBreakpoint();
-  console.log('breakpoint', xs, sm, md)
+  // console.log('breakpoint', xs, sm, md)
   // console.log('sessionHeader', session)
   // console.log('path', asPath)
 
