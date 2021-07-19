@@ -1,10 +1,22 @@
+import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import { Layout, Row, Col, Input, Grid, Button, Drawer, Menu, Avatar } from 'antd'
+import { useGetUserByAuth } from 'modules/users/get-user-by-auth'
 import Container from 'components/elements/container/container'
 import RightMenu from './menu/rightMenu'
+import config from 'config'
 import cx from 'classnames'
+import {
+  UserOutlined,
+  AppstoreOutlined,
+  ScheduleOutlined,
+  LogoutOutlined,
+  AppstoreAddOutlined,
+  HomeOutlined,
+  LoginOutlined
+} from '@ant-design/icons'
 import s from './header.module.less'
 
 const { Header } = Layout
@@ -16,6 +28,7 @@ function MainHeader () {
   const [ session, loading ] = useSession()
   const { asPath } = useRouter()
   const { xs, sm, md } = useBreakpoint();
+  const { data: dataUser, error } = useGetUserByAuth()
   // console.log('breakpoint', xs, sm, md)
   // console.log('sessionHeader', session)
   // console.log('path', asPath)
@@ -25,9 +38,11 @@ function MainHeader () {
   const navbarBrand = () => {
     return (
       <h1>
-        <a href='/' className={s.logo}>
-          Ventsity
-        </a>
+        <Link href='/'>
+          <a className={s.logo}>
+            Ventsity
+          </a>
+        </Link>
       </h1>
     )
   }
@@ -36,20 +51,32 @@ function MainHeader () {
 
   const searchMain = () => {
     return (
-      asPath !== '/' &&
+      (asPath !== '/' && asPath !== '/#') &&
       <Search className='customSearch' placeholder="input search text" allowClear onSearch={onSearch} bordered={false} />
     )
   }
 
   const viewProfile = () => {
+    const path = (dataUser && dataUser.userAvatar) && dataUser.userAvatar.url
+    console.log('path', path)
     return (
       <div className={cx('flex align-items-center justify-content-between', s.profileWrapper)}>
         <span className={s.signedInText}>
           {session.user.name || session.user.email}
         </span>
         {
-          session.user.image && 
-          <Avatar src={session.user.image} className={s.avatar} />
+          session.user.image ? 
+          <Avatar 
+            src={
+              path !== null ? config.api_url + path : session.user.image
+            }  
+            className={cx(s.avatar, 'ccc')} 
+          />
+          :
+          <Avatar 
+            className={s.avatar} 
+            icon={<UserOutlined />}
+          />
         }
       </div>
     )
@@ -61,7 +88,19 @@ function MainHeader () {
         { session && viewProfile()}
         <Menu mode='inline' className={s.menuSideWrapper}>
           <Menu.Item key='home'>
-            <a href='/'>Home</a>
+            <Link href='/'>
+              <a>
+                <HomeOutlined /> Home
+              </a>
+            </Link>
+          </Menu.Item>
+
+          <Menu.Item key='createEvent'>
+            <Link href='/events/create'>
+              <a>
+                <AppstoreAddOutlined /> Create Event
+              </a>
+            </Link>
           </Menu.Item>
           
           {!session && <>
@@ -74,16 +113,37 @@ function MainHeader () {
                   signIn()
                 }}
               >
-                Sign in
+                <LoginOutlined /> Sign in
               </a>
             </Menu.Item>
           </>}
 
-          <Menu.Item key='cevent'>
-            <a href="">Create Event</a>
-          </Menu.Item>
-
           {session && <>
+
+            <Menu.Item key='profile'>
+              <Link href='/user'>
+                <a>
+                  <UserOutlined />Profile
+                </a>
+              </Link>
+            </Menu.Item>
+
+            <Menu.Item key='myEvents'>
+              <Link href='/my-events'>
+                <a>
+                  <AppstoreOutlined /> My Events
+                </a>
+              </Link>
+            </Menu.Item>
+
+            <Menu.Item key='myTickets'>
+              <Link href='/my-tickets'>
+                <a>
+                  <ScheduleOutlined /> My Tickets
+                </a>
+              </Link>
+            </Menu.Item>
+          
             <Menu.Item key='logout' className={s.menuLogout}>
               <a
                 href={`/api/auth/signout`}
@@ -93,9 +153,10 @@ function MainHeader () {
                   signOut()
                 }}
               >
-                Sign out
+                <LogoutOutlined /> Sign out
               </a>
             </Menu.Item>
+
           </>}
         </Menu>
       </>
@@ -113,7 +174,7 @@ function MainHeader () {
   
   return (
     <Header 
-      className={asPath !== '/' ? cx(s.mainHeader, s.headerWhite) : cx(s.mainHeader)}
+      className={asPath !== '/' && asPath !== '/#' ? cx(s.mainHeader, s.headerWhite) : cx(s.mainHeader)}
       // className={s.mainHeader}
     >
       <Container>

@@ -61,7 +61,8 @@ function ImageEventForm() {
             listType="picture-card"
             className="avatar-uploader"
             showUploadList={false}
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            action='http://localhost:1337/upload/'
             beforeUpload={beforeUpload}
             onChange={handleChange}
             className='customUploadBox'

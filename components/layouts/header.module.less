@@ -91,16 +91,53 @@
 }
 
 .menuSideWrapper {
-  height: 100%;
+  height: calc(100% - 80px);
   position: relative;
   border: none;
   .menuLogout {
     position: absolute !important;
     bottom: 0px;
   }
+  a {
+    font-weight: 500;
+    color: var(--text-color);
+    &:hover {
+      color: var(--label-color);
+    }
+    span {
+      margin-right: 4px;
+    }
+  }
 }
 .profileWrapper {
   background-color: @border-color;
   padding: 24px;
   font-weight: bold;
+}
+
+.profilePopup {
+  min-width: 250px;
+}
+.menu {
+  margin: 0px;
+  padding: 8px 0px;
+  list-style: none;
+  li {
+    padding: 4px 16px;
+    &:hover {
+      background-color: rgba(#000, 0.1);
+    }
+  }
+  a {
+    color: var(--text-color);
+    display: block;
+    width: 100%;
+    font-weight: 500;
+    &:hover {
+      color: var(--label-color);
+    }
+    span {
+      margin-right: 4px;
+    }
+  }
 }

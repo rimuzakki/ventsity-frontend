@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { DatePicker, Select } from 'antd'
+import { useGetCategories } from 'modules/categories/get-categories'
 import cx from 'classnames'
 import s from './filterEvent.module.less'
 
 const { Option } = Select
 
 function FilterEvent() {
+  const { data: dataCategories, error } = useGetCategories()
 
   const [ filterDateValue, setFilterDateValue ] = useState(null)
   const [ filterTypeValue, setFilterTypeValue ] = useState('anytype')
@@ -50,9 +52,11 @@ function FilterEvent() {
         <label>Category : </label>
         <Select value={filterCategoryValue} onChange={onChangeFilterCategory} style={{ minWidth: 120 }} bordered={false}>
           <Option value="anycategory">Any type</Option>
-          <Option value="category1">Category 1</Option>
-          <Option value="category2">Category 2</Option>
-          <Option value="category3">Category 3</Option>
+          {
+            dataCategories?.map(c =>
+              <Option value={c.slug}>{c.name}</Option>
+            )
+          }
         </Select>
       </div>
       {
