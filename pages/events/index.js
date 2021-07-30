@@ -1,6 +1,11 @@
+import { Pagination } from 'antd'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Head from 'components/layouts/head'
 import Container from 'components/elements/container/container'
-import EventListWrapper from "components/modules/events/eventListWrapper"
+import EventListWrapper from 'components/modules/events/eventListWrapper'
+import { useGetEvents } from 'modules/events/get-events'
+import Context from 'libs/context/context'
 
 const dataEvents = [
   {
@@ -196,12 +201,49 @@ const dataEvents = [
 ]
 
 function Event() {
+  const router = useRouter()
+  const query = router.query
+  console.log(query);
+
+  const [ pageIndex, setPageIndex ] = useState(0)
+  const [ pageSize, setPageSize ] = useState(10)
+  const { 
+    filterDateValue, setFilterDateValue,
+    filterTypeValue, setFilterTypeValue,
+    filterCategoryValue, setFilterCategoryValue
+  } = Context.useContainer()
+  const { data: dataEvents, error, count } = useGetEvents(pageIndex, pageSize, filterDateValue, filterTypeValue, filterCategoryValue)
+
+  const onShowSizeChange = (current, pageSize) => {
+    const start = +current === 1 ? 0 : (+current - 1) * pageSize
+    setPageIndex(start)
+    setPageSize(pageSize)
+  }
+
+  useEffect(() => {
+    if (query) {
+      query.category && setFilterCategoryValue(query.category)
+    }
+  }, [query])
+
   return (
     <>
       <Head title='Find Events | Ventsity' />
 
       <Container>
-        <EventListWrapper data={dataEvents} />
+        <EventListWrapper
+          dataEvents={dataEvents}
+          error={error}
+        />
+        <div className='flex justify-content-center align-items-center' style={{ marginTop: 64 }}>
+          <Pagination
+            showSizeChanger
+            onChange={onShowSizeChange}
+            defaultCurrent={1}
+            total={count}
+            hideOnSinglePage
+          />
+        </div>
       </Container>
     </>
   )

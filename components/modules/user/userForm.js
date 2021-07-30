@@ -110,9 +110,9 @@ function UserForm(props) {
 
   useEffect(() => {
     form.setFieldsValue({
-      fullname: data.fullName || '',
+      fullname: data.fullName || dataSession.user.name,
       phonenumber: data.phoneNumber || '',
-      gender: data.gender || '3',
+      gender: data.gender || null,
       address: data.address || ''
     })
   }, [data])

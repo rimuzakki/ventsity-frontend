@@ -9,14 +9,18 @@ function MyEventList(props) {
     <>
       <Row gutter={16}>
         {
-          !data &&
-          <Fallback title='No events right now' />
+          (!data || data.length === 0) &&
+          <Fallback title={`You have no event yet`} />
+        }
+        {
+          loading &&
+          <Fallback title={`Loading...`} />
         }
         {
           data?.map(c => 
-            <Col sm={12} lg={8} key={c.id}>
+            <Col xs={24} sm={12} lg={8} key={c.id}>
               <CardEvent 
-                event={c} 
+                dataEvent={c} 
                 loading={loading}
               />
             </Col>

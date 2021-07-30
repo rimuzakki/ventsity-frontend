@@ -1,4 +1,5 @@
 import { Row, Col, Button } from 'antd'
+import Router from 'next/router'
 import cx from 'classnames'
 import MainLayout from 'components/layouts/mainLayout'
 import Container from 'components/elements/container/container'
@@ -260,6 +261,13 @@ const dataCategories = [
 ]
 
 export default function Page () {
+
+  const handleClickBrowse = () => {
+    Router.push({
+      pathname: '/events'
+    })
+  }
+
   return (
     <>
       <div className={cx('relative', s.blobWrapper)}>
@@ -275,7 +283,7 @@ export default function Page () {
                     <div className={cx('heroText', s.heroText)}>
                       <h1>Join events in the university easily</h1>
                     </div>
-                    <Button size='large' type="primary" className={s.ctaButton}>Browse events <RightOutlined /></Button>
+                    <Button size='large' type="primary" className={s.ctaButton} onClick={handleClickBrowse}>Browse events <RightOutlined /></Button>
                   </Col>
                   <Col sm={24} md={12} className='flex align-items-center'>
                     <img src='assets/illustration1.svg' className={cx('homeIllu', s.homeIllustration)} />
@@ -292,7 +300,7 @@ export default function Page () {
               <Container>
                 <Row>
                   <Col span={24}>
-                    <UpcomingEvent data={dataEvents} />
+                    <UpcomingEvent />
                   </Col>
                 </Row>
               </Container>
@@ -302,7 +310,7 @@ export default function Page () {
               <Container>
                 <Row>
                   <Col span={24}>
-                    <EventCategories data={dataCategories} />
+                    <EventCategories />
                   </Col>
                 </Row>
               </Container>

@@ -18,7 +18,9 @@ function TitleSection(props) {
       {
         loadMoreTarget && 
         <div className={s.actionTitle}>
-          <a onClick={handleClickAction}>{loadMoreText} <DoubleRightOutlined /></a>
+          <Link href={loadMoreTarget}>
+            <a>{loadMoreText} <DoubleRightOutlined /></a>
+          </Link>
         </div>
       }
     </div>

@@ -4,11 +4,13 @@ import TitleSection from 'components/elements/title-section/titleSection'
 import CardEvent from 'components/elements/card-event/cardEvent'
 import Fallback from 'components/elements/fallback/fallback'
 import cx from 'classnames'
+import { useGetUpcomingEvents } from 'modules/events/get-upcoming-events'
+
 import 'react-multi-carousel/lib/styles.css'
 import s from './upcomingEvent.module.less'
 
 function UpcomingEvent(props) {
-  const { data } = props
+  const { data: dataEvents, error } = useGetUpcomingEvents()
 
   const responsive = {
     desktop: {
@@ -62,12 +64,16 @@ function UpcomingEvent(props) {
               swipeable
             >
               {
-                !data &&
+                !dataEvents &&
                 <Fallback title='No data' />
               }
               {
-                data?.map(c => 
-                  <CardEvent key={c.id} event={c} />
+                dataEvents?.map(c => 
+                  <CardEvent 
+                    key={c.id} 
+                    dataEvent={c} 
+                    loading={!dataEvents && !error}
+                  />
                 )
               }
             </Carousel>

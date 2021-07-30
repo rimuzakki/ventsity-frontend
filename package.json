@@ -19,6 +19,8 @@
     "mysql": "^2.18.1",
     "next": "latest",
     "next-auth": "^3.14.7",
+    "next-compose-plugins": "^2.2.1",
+    "next-images": "^1.8.1",
     "next-plugin-antd-less": "^1.2.2",
     "next-with-less": "^0.3.0",
     "path": "^0.12.7",

@@ -4,10 +4,18 @@ import CardCategory from 'components/elements/card-category/cardCategory'
 import Fallback from 'components/elements/fallback/fallback'
 import { useGetCategories } from 'modules/categories/get-categories'
 import cx from 'classnames'
+import Context from 'libs/context/context'
+
 import s from './eventCategories.module.less'
 
 function UpcomingEvent(props) {
   const { data: dataCategories, error } = useGetCategories()
+
+  const { setFilterCategoryValue } = Context.useContainer()
+
+  const handleClickCategory = (slug) => {
+    setFilterCategoryValue(slug)
+  }
 
   return (
     <div className={s.eventCategoriesWrapper}>
@@ -25,7 +33,10 @@ function UpcomingEvent(props) {
             {
               dataCategories?.map(c => 
                 <Col xs={24} md={12} lg={8} key={c.id}>
-                  <CardCategory category={c} />
+                  <CardCategory 
+                    category={c} 
+                    handleClick={() => handleClickCategory(c.slug)}
+                  />
                 </Col>
               )
             }

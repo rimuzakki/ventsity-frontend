@@ -4,6 +4,7 @@ import { Provider as AuthProvider, getSession } from 'next-auth/client'
 import axios from 'axios'
 import MainLayout from 'components/layouts/mainLayout'
 import PrivateRoute from 'components/layouts/privateRoute'
+import Context from 'libs/context/context'
 // require('styles/global.less')
 import { useRouter } from 'next/router'
 import 'antd/dist/antd.less'
@@ -23,20 +24,22 @@ function MyApp({ Component, pageProps, session }) {
   }
 
   return (
-    <AuthProvider
-        session={session} 
-      >
-        {
-          asPath === '/' || asPath === '/#' ?
-          <Component {...pageProps} />
-          :
-          <PrivateRoute protectedRoutes={protectedRoutes}>
-            <MainLayout>
-              <Component {...pageProps} />
-            </MainLayout>
-          </PrivateRoute>
-        }
-    </AuthProvider>
+    <Context.Provider displayName="Context Display Name">
+      <AuthProvider
+          session={session} 
+        >
+          {
+            asPath === '/' || asPath === '/#' ?
+            <Component {...pageProps} />
+            :
+            <PrivateRoute protectedRoutes={protectedRoutes}>
+              <MainLayout>
+                <Component {...pageProps} />
+              </MainLayout>
+            </PrivateRoute>
+          }
+      </AuthProvider>
+    </Context.Provider>
   )
 }
 

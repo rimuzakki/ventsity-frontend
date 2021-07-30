@@ -27,6 +27,7 @@ function MainHeader () {
   
   const [ session, loading ] = useSession()
   const { asPath } = useRouter()
+  const router = useRouter()
   const { xs, sm, md } = useBreakpoint();
   const { data: dataUser, error } = useGetUserByAuth()
   // console.log('breakpoint', xs, sm, md)
@@ -47,7 +48,10 @@ function MainHeader () {
     )
   }
 
-  const onSearch = value => console.log(value);
+  const onSearch = value => {
+    console.log(value)
+    router.push(`/discover/${value}`)
+  }
 
   const searchMain = () => {
     return (

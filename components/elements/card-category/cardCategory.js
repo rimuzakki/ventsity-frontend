@@ -7,12 +7,16 @@ import config from 'config'
 const { Text, Paragraph } = Typography
 
 function CardCategory(props) {
-  const { category } = props
+  const { category, handleClick } = props
   const path = (category && category.cover) && category.cover.formats.thumbnail.url
   const coverThumbnailUrl = config.api_url + path
   return (
-    <Link href='/events'>
-      <a>
+    <Link
+      href={{ pathname: '/events', query: { category: category.slug } }} 
+    >
+      <a 
+        // onClick={handleClick}
+      >
         <div className={cx('flex flex-row', s.cardCategory)}>
           <div className={s.categoryImage}>
             <img src={coverThumbnailUrl} alt={category.name} />

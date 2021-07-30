@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/client'
 import { useEffect, useState } from 'react'
-import fetcher from 'utils/fetcher'
+import fetcher from 'libs/utils/fetcher'
 import useSWR from 'swr'
 import config from 'config'
 

@@ -1,4 +1,4 @@
-import fetcher from 'utils/fetcher'
+import fetcher from 'libs/utils/fetcher'
 import useSWR from 'swr'
 import config from 'config'
 

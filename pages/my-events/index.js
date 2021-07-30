@@ -1,7 +1,10 @@
 import Head from 'components/layouts/head'
 import MyEventWrapper from 'components/modules/my-events/myEventWrapper'
+import { useGetOngoingMyEvents, useGetPastMyEvents } from 'modules/events/get-my-events'
+import { useState, useEffect } from 'react'
 
-const dataEvents = [
+
+const dataEventss = [
   {
     id: 1,
     title: 'Langkah Mudah Memulai Digital Marketing',
@@ -65,14 +68,20 @@ const dataEvents = [
 ]
 
 function MyEvents() {
+  const [ pageIndex, setPageIndex ] = useState(0)
+  const [ pageSize, setPageSize ] = useState(10)
+  const { data: dataOngoingMyEvents, errorOngoing } = useGetOngoingMyEvents()
+  const { data: dataPastMyEvents, errorPast } = useGetPastMyEvents()
+
   return (
     <>
       <Head title='My Events | Ventsity' />
 
       <MyEventWrapper
-        ongoingEventData={dataEvents}
-        pastEventData={dataEvents}
-        loading={true}
+        ongoingEventData={dataOngoingMyEvents}
+        pastEventData={dataPastMyEvents}
+        ongoingLoading={!dataOngoingMyEvents && !errorOngoing}
+        pastLoading={!dataPastMyEvents && !errorPast}
       />
     </>
   )
