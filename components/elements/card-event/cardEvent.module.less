@@ -9,7 +9,7 @@
   position: relative;
   img {
     width: 100%;
-    height: 150px;
+    height: 200px;
     object-fit: cover;
     border-radius: var(--border-radius-base) var(--border-radius-base) 0px 0px;
   }
@@ -20,12 +20,17 @@
     border-radius: 4px;
   }
 }
+.tagEvent {
+  text-transform: capitalize;
+}
 .cardEventContent {
   display: flex;
   flex-direction: column;
   padding: 14px 12px;
   .dateTimeEvent {
     margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
   }
   .titleEvent {
     font-weight: bold;

@@ -1,5 +1,6 @@
 import Head from 'components/layouts/head'
 import TicketWrapper from 'components/modules/tickets/ticketWrapper'
+import { useGetMyTicketsOngoing, useGetMyTicketsPast } from 'modules/tickets/get-my-tickets'
 
 const dataTickets = [
   {
@@ -65,13 +66,18 @@ const dataTickets = [
 ]
 
 function MyTickets() {
+  const { data: dataTicketsOngoing, errorOngoing } = useGetMyTicketsOngoing()
+  const { data: dataTicketsPast, errorPast } = useGetMyTicketsPast() 
+
   return (
     <>
       <Head title='My Tickets | Ventsity' />
 
       <TicketWrapper
-        recentTicketData={dataTickets}
-        pastTicketData={dataTickets}
+        recentTicketData={dataTicketsOngoing}
+        pastTicketData={dataTicketsPast}
+        recentLoading={!dataTicketsOngoing && !errorOngoing}
+        pastLoading={!dataTicketsPast && !errorPast}
       />
     </>
   )

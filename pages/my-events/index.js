@@ -1,6 +1,6 @@
 import Head from 'components/layouts/head'
 import MyEventWrapper from 'components/modules/my-events/myEventWrapper'
-import { useGetOngoingMyEvents, useGetPastMyEvents } from 'modules/events/get-my-events'
+import { useGetOngoingMyEvents, useGetPastMyEvents, useGetDraftMyEvents } from 'modules/events/get-my-events'
 import { useState, useEffect } from 'react'
 
 
@@ -72,6 +72,7 @@ function MyEvents() {
   const [ pageSize, setPageSize ] = useState(10)
   const { data: dataOngoingMyEvents, errorOngoing } = useGetOngoingMyEvents()
   const { data: dataPastMyEvents, errorPast } = useGetPastMyEvents()
+  const { data: dataDraftMyEvents, errorDraft } = useGetDraftMyEvents()
 
   return (
     <>
@@ -80,8 +81,10 @@ function MyEvents() {
       <MyEventWrapper
         ongoingEventData={dataOngoingMyEvents}
         pastEventData={dataPastMyEvents}
+        draftEventData={dataDraftMyEvents}
         ongoingLoading={!dataOngoingMyEvents && !errorOngoing}
         pastLoading={!dataPastMyEvents && !errorPast}
+        draftLoading={!dataDraftMyEvents && !errorDraft}
       />
     </>
   )

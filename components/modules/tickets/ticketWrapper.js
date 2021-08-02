@@ -9,7 +9,7 @@ const { TabPane } = Tabs
 
 function TicketWrapper(props) {
 
-  const { recentTicketData, pastTicketData } = props
+  const { recentTicketData, pastTicketData, recentLoading, pastLoading } = props
 
   const callback = (key) => {
     console.log(key)
@@ -32,11 +32,13 @@ function TicketWrapper(props) {
                 <TabPane tab="Recent Ticket" key="1">
                   <TicketList
                     data={recentTicketData}
+                    loading={recentLoading}
                   />
                 </TabPane>
                 <TabPane tab="Past Ticket" key="2">
                   <TicketList 
                     data={pastTicketData}
+                    loading={pastLoading}
                   />
                 </TabPane>
               </Tabs>

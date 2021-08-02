@@ -104,7 +104,7 @@ function EventRegister(props) {
                   <>
                     {
                       isUserRegistered ?
-                      <a target="_blank" href={data?.onlineUrl}>Stream link</a>
+                      <a target="_blank" href={data?.onlineUrl}>{data?.onlineUrl}</a>
                       :
                       <>
                         <p>Online event</p>

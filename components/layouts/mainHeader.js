@@ -49,7 +49,7 @@ function MainHeader () {
   }
 
   const onSearch = value => {
-    console.log(value)
+    // console.log(value)
     router.push(`/discover/${value}`)
   }
 
@@ -62,7 +62,7 @@ function MainHeader () {
 
   const viewProfile = () => {
     const path = (dataUser && dataUser.userAvatar) && dataUser.userAvatar.url
-    console.log('path', path)
+    // console.log('path', path)
     return (
       <div className={cx('flex align-items-center justify-content-between', s.profileWrapper)}>
         <span className={s.signedInText}>

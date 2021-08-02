@@ -7,7 +7,7 @@ import cx from 'classnames'
 const { TabPane } = Tabs
 
 function MyEventWrapper(props) {
-  const { ongoingEventData, pastEventData, ongoingLoading, ongoingPast } = props
+  const { ongoingEventData, pastEventData, draftEventData, ongoingLoading, pastLoading, draftLoading } = props
 
   const callback = (key) => {
     console.log(key)
@@ -36,7 +36,13 @@ function MyEventWrapper(props) {
                 <TabPane tab="Past Events" key="2">
                   <MyEventList 
                     data={pastEventData}
-                    loading={ongoingPast}
+                    loading={pastLoading}
+                  />
+                </TabPane>
+                <TabPane tab="Draft Events" key="3">
+                  <MyEventList 
+                    data={draftEventData}
+                    loading={draftLoading}
                   />
                 </TabPane>
               </Tabs>

@@ -22,6 +22,7 @@ function MyEventList(props) {
               <CardEvent 
                 dataEvent={c} 
                 loading={loading}
+                showStatus
               />
             </Col>
           )

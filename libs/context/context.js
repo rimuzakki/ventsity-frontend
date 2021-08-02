@@ -5,13 +5,16 @@ const Context = createContainer(() => {
   const [ filterDateValue, setFilterDateValue ] = useState(null)
   const [ filterTypeValue, setFilterTypeValue ] = useState(null)
   const [ filterCategoryValue, setFilterCategoryValue ] = useState(null)
+  const [ eventData, setEventData ] = useState(null)
 
   return {
     filterDateValue, setFilterDateValue,
 
     filterTypeValue, setFilterTypeValue,
 
-    filterCategoryValue, setFilterCategoryValue
+    filterCategoryValue, setFilterCategoryValue,
+
+    eventData, setEventData
   }
 })
 

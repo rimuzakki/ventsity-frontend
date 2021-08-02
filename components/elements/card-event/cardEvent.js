@@ -10,9 +10,9 @@ import config from 'config'
 const { Text, Paragraph } = Typography
 
 function CardEvent(props) {
-  const { dataEvent, loading } = props
+  const { dataEvent, loading, showStatus, ticketId } = props
 
-  const path = (dataEvent && dataEvent.cover) && dataEvent.cover.formats.thumbnail.url
+  const path = (dataEvent && dataEvent.cover) && dataEvent.cover.formats.small.url
   const coverThumbnailUrl = config.api_url + path
   // const createdBy = dataEvent.creator.fullName
 
@@ -61,15 +61,19 @@ function CardEvent(props) {
                   {`, `}
                   {moment(dataEvent.timeStart, 'H:mm').format('H:mm')}
                 </Text>
+                {
+                  showStatus &&
+                  <Tag color={dataEvent.status === 'draft' ? 'red' : 'green'} className={s.tagEvent}>{dataEvent.status}</Tag>
+                }
               </div>
-              {/* {
-                event.idTicket &&
+              {
+                ticketId &&
                 <div className={s.ticketId}>
                   <Text>
-                    Ticket #{event.idTicket}
+                    Ticket #{ticketId}
                   </Text>
                 </div>
-              } */}
+              }
               <div className='flex flex-column justify-content-between h-full'>
                 <div className={s.titleEvent}>
                   <Paragraph 
