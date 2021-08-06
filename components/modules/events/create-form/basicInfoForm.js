@@ -1,8 +1,11 @@
 import { Form, Input, Select, InputNumber } from 'antd'
+import { useGetCategories } from 'modules/categories/get-categories'
 
 const { Option } = Select
 
 function BasicInfoForm() {
+  const { data: dataCategories, error } = useGetCategories()
+
   return (
     <>
       <Form.Item
@@ -13,13 +16,13 @@ function BasicInfoForm() {
         <Input placeholder='Enter your event title' />
       </Form.Item> 
 
-      <Form.Item
+      {/* <Form.Item
         label='Event Organizer'
         name='eventOrganizer'
         rules={[{ required: true, message: 'Please input the organizer name of the event!' }]}
       >
         <Input placeholder='Enter your organizer name' />
-      </Form.Item> 
+      </Form.Item>  */}
 
       <Form.Item 
         label='Event Category' 
@@ -30,11 +33,11 @@ function BasicInfoForm() {
           placeholder='Select category for this event'
           allowClear
         >
-          <Option value='Category_a'>Category A</Option>
-          <Option value='Category_b'>Category B</Option>
-          <Option value='Category_c'>Category C</Option>
-          <Option value='Category_d'>Category D</Option>
-          <Option value='Category_e'>Category E</Option>
+          {
+            dataCategories?.map(c =>
+              <Option key={c.id} value={c.slug}>{c.name}</Option>
+            )
+          }
         </Select>
       </Form.Item>
 

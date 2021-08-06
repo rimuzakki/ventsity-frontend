@@ -11,6 +11,9 @@ function DateTimeForm() {
     ],
   };
 
+  const dateFormat = 'YYYY-MM-DD'
+  const timeFormat = 'HH:mm'
+
   return (
     <>
       <Row gutter={16}>
@@ -20,7 +23,9 @@ function DateTimeForm() {
             label="Event Start" 
             {...config}
           >
-            <DatePicker />
+            <DatePicker
+              format={dateFormat}
+            />
           </Form.Item>
         </Col>
         <Col>
@@ -29,7 +34,9 @@ function DateTimeForm() {
             label="Start Time" 
             {...config}
           >
-            <TimePicker />
+            <TimePicker
+              format={timeFormat}
+            />
           </Form.Item>
         </Col>
       </Row>
@@ -41,7 +48,9 @@ function DateTimeForm() {
             label="Event End" 
             {...config}
           >
-            <DatePicker />
+            <DatePicker
+              format={dateFormat}
+            />
           </Form.Item>
         </Col>
         <Col>
@@ -50,7 +59,9 @@ function DateTimeForm() {
             label="End Time" 
             {...config}
           >
-            <TimePicker />
+            <TimePicker
+              format={timeFormat}
+            />
           </Form.Item>
         </Col>
       </Row>

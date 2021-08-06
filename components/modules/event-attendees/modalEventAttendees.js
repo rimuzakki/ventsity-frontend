@@ -34,7 +34,7 @@ function ModalEventAttendees(props) {
         dataSource={data}
         renderItem={(item, key) => {
           return (
-            <List.Item>
+            <List.Item key={key}>
               <Skeleton title={false} loading={!data && !error} active>
                 <div style={{ width: 30 }}>{key+1}</div>
                 <List.Item.Meta

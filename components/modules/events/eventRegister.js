@@ -1,12 +1,19 @@
-import { Button, Skeleton } from 'antd'
+import { Button, Skeleton, Modal } from 'antd'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { mutate } from 'swr'
 import cx from 'classnames'
 import moment from 'moment'
+import axios from 'axios'
 import { useSession } from 'next-auth/client'
-import { ClockCircleOutlined, VideoCameraOutlined, UsergroupAddOutlined, EnvironmentOutlined } from '@ant-design/icons'
+import { ClockCircleOutlined, VideoCameraOutlined, UsergroupAddOutlined, EnvironmentOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
 import s from './eventDetail.module.less'
 
+const { confirm } = Modal
+
 function EventRegister(props) {
+  const router = useRouter()
+
   const { dataEvent: data, handleOpenModalAttendees } = props
   const [ session, loadingSession ] = useSession()
   const [ loading, setLoading ] = useState(false)
@@ -18,6 +25,74 @@ function EventRegister(props) {
   const creator = data.creator
   const isCreator = creator.id === session?.id
   console.log('isCreator', isCreator)
+
+  const handleRegisterSubmit = () => {
+    const randomCode = Math.floor(100000 + Math.random() * 900000);
+    const randomCodeStr = randomCode.toString()
+
+    const dataPost = {
+      ticketId: randomCodeStr,
+      event: {
+        id: data.id
+      },
+      user: {
+        id: session.id
+      }
+    }
+    axios.post(`tickets`, dataPost)
+    .then(result => {
+      console.log('res', result)
+      mutate(`events?endUrl=${data.endUrl}`)
+    })
+    .catch(err => {
+      console.log('err', err)
+    })
+  }
+
+  const viewRegisterConfirmation = () => {
+    return (
+      <>
+        <label style={{ marginTop: 16, fontSize: 14, fontWeight: 'bold' }}>Event title : </label>
+        <h4>
+          <strong>
+            {data.title}
+          </strong>
+        </h4>
+        <label style={{ marginTop: 8, fontSize: 14, fontWeight: 'bold' }}>Event schedule : </label>
+        <h4><strong>
+          {moment(data.dateStart).format('dddd, D MMMM YYYY')} 
+          {data.dateStart !== data.dateEnd && ` - ${moment(data.dateEnd).format('dddd, D MMMM YYYY')}`}
+        </strong></h4>
+        <h4><strong>
+          {moment(data.timeStart, 'H:mm').format('H:mm')} - {moment(data.timeEnd, 'H:mm').format('H:mm')}
+        </strong></h4>
+      </>
+    )
+  }
+
+  const showConfirm = () => {
+    confirm({
+      title: 'Do you want register for :',
+      icon: <ExclamationCircleOutlined />,
+      content: viewRegisterConfirmation(),
+      okText: 'Register',
+      cancelText: 'Cancel',
+      onOk() {
+        console.log('OK')
+        handleRegisterSubmit()
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  }
+
+  const handleRegisterEvent = () => {
+    session ?
+      showConfirm()
+    :
+      router.push(`/api/auth/signin`)
+  }
 
   const viewLoading = () => {
     return (
@@ -133,10 +208,29 @@ function EventRegister(props) {
               </div>
             </div>
             {
-              isCreator ?
+              isUserRegistered &&
+              <>
+                <p>You have registered for this event</p>
+                <a
+                  href={`/eticket/${isUserRegistered?.ticketId}`} target='_blank' 
+                  className='ant-btn ant-btn-block' style={{ marginTop: 16 }}
+                >E-Ticket</a>
+              </>
+            }
+            {
+              isCreator &&
               <Button type="primary" block style={{ marginTop: 16 }} onClick={handleOpenModalAttendees}>See Attendees List</Button>
-              :
-              <Button type="primary" block style={{ marginTop: 16 }}>REGISTER NOW</Button>
+            }
+            {
+              (!isCreator && !isUserRegistered) &&
+              <Button
+                type="primary" 
+                block 
+                style={{ marginTop: 16 }}
+                onClick={handleRegisterEvent}
+              >
+                REGISTER NOW
+              </Button>
             }
           </div>
         </div>

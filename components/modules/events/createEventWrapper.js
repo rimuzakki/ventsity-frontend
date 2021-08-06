@@ -6,6 +6,7 @@ import LocationEventForm from './create-form/locationEventForm'
 import DateTimeForm from './create-form/dateTimeForm'
 import {Link} from 'react-scroll'
 import { Row, Col, Form, Button } from 'antd'
+import moment from 'moment'
 import { ProfileOutlined, PictureOutlined, EnvironmentOutlined, CalendarOutlined } from '@ant-design/icons'
 import cx from 'classnames'
 import s from './createEventWrapper.module.less'
@@ -13,8 +14,12 @@ import s from './createEventWrapper.module.less'
 function CreateEventWrapper() {
   const [form] = Form.useForm()
 
+  const dateFormat = 'YYYY-MM-DD'
+  const timeFormat = 'HH:mm'
+
   const onFinish = (values) => {
     console.log('Success:', values)
+    console.log('DS:', moment(values.dateStart).format(dateFormat))
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -110,10 +115,15 @@ function CreateEventWrapper() {
                   </Form>
                 </Col>
               </Row>
-              <Row justify='end'>
+              <Row gutter={16} justify='end'>
+                <Col xs={24} md={4}>
+                  <Button onClick={onSaveForm} block>
+                    Save
+                  </Button>
+                </Col>
                 <Col xs={24} md={4}>
                   <Button type='primary' onClick={onSaveForm} block>
-                    Save
+                    Publish
                   </Button>
                 </Col>
               </Row>
