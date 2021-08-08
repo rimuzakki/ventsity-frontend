@@ -11,7 +11,7 @@ import 'antd/dist/antd.less'
 import 'styles/global.less'
 
 function MyApp({ Component, pageProps, session }) {
-  const protectedRoutes = ['/user', '/my-events', '/my-tickets', '/events/create']
+  const protectedRoutes = ['/user', '/my-events', '/my-tickets', '/events/create', '/events/edit', '/eticket']
 
   console.log('session', session)
   const { asPath } = useRouter()

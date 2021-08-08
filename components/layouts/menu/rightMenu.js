@@ -81,6 +81,7 @@ function RightMenu(props) {
             <div className={s.ctaHeader}>
               <a
                 href={`/api/auth/signin`}
+                // href={`/signin`}
                 className={s.ctaLink}
                 onClick={(e) => {
                   e.preventDefault()

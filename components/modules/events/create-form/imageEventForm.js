@@ -55,14 +55,18 @@ function ImageEventForm() {
   return (
     <>
       <Form.Item label="Image">
-        <Form.Item name="imageEvent" valuePropName="fileList" getValueFromEvent={normFile} noStyle>
+        <Form.Item 
+          name="imageEvent" 
+          valuePropName="fileList" 
+          getValueFromEvent={normFile} 
+          noStyle
+          // rules={[{ required: true, message: 'Please add cover of the event!' }]}
+        >
           <Upload 
             name="imageEventUploader"
             listType="picture-card"
             className="avatar-uploader"
             showUploadList={false}
-            // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            // action='http://localhost:1337/upload/'
             beforeUpload={beforeUpload}
             onChange={handleChange}
             className='customUploadBox'

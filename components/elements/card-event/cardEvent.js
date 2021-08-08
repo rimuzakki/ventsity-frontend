@@ -12,8 +12,8 @@ const { Text, Paragraph } = Typography
 function CardEvent(props) {
   const { dataEvent, loading, showStatus, ticketId } = props
 
-  const path = (dataEvent && dataEvent.cover) && dataEvent.cover.formats.small.url
-  const coverThumbnailUrl = config.api_url + path
+  const path = (dataEvent && dataEvent.cover) && dataEvent.cover.url
+  const coverThumbnailUrl = path !== null ? config.api_url + path : 'assets/image-placeholder.png'
   // const createdBy = dataEvent.creator.fullName
 
   const viewLoading = () => {

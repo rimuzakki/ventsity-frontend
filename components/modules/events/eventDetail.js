@@ -15,8 +15,8 @@ function EventDetail(props) {
   const data = dataEvent && dataEvent[0]
   console.log('dataEvent', data)
 
-  const path = data?.cover.formats.small.url
-  const coverUrl = config.api_url + path
+  const path = data.cover ? data.cover.url : null
+  const coverUrl = path !== null ? config.api_url + path : 'http://localhost:3004/assets/image-placeholder.png'
 
   const handleOpenModalAttendees = () => {
     setIsModalVisible(true)

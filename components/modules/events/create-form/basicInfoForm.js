@@ -35,7 +35,7 @@ function BasicInfoForm() {
         >
           {
             dataCategories?.map(c =>
-              <Option key={c.id} value={c.slug}>{c.name}</Option>
+              <Option key={c.id} value={c.id}>{c.name}</Option>
             )
           }
         </Select>
@@ -52,7 +52,7 @@ function BasicInfoForm() {
       <Form.Item
         label='Email Contact Person'
         name='eventContactPerson'
-        rules={[{ required: true, message: 'Please add email contact person of the event!' }]}
+        rules={[{ required: true, type: 'email', message: 'Please add email contact person of the event!' }]}
       >
         <Input placeholder='Enter your organizer email' />
       </Form.Item> 
@@ -60,6 +60,7 @@ function BasicInfoForm() {
       <Form.Item
         label='Quota of participants'
         name='eventParticipant'
+        rules={[{ type: 'number' }]}
       >
         <InputNumber placeholder='Enter maximum limit of the participants' style={{ width: '100%' }} />
       </Form.Item> 

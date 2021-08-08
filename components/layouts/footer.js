@@ -16,11 +16,11 @@ export default function Footer() {
             <div className={s.footerCta}>
               <Title level={4}>
                 Create your own event
-                <Link href='/'>
+                <Link href='/events/create'>
                   <a>Create Event</a>
                 </Link>
                 or find interested event 
-                <Link href='/'>
+                <Link href='/events'>
                   <a>Find Event</a>
                 </Link>
               </Title>

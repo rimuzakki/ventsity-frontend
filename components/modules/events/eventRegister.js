@@ -219,6 +219,13 @@ function EventRegister(props) {
             }
             {
               isCreator &&
+              <a
+                href={`/events/edit/${data.endUrl}`}
+                className='ant-btn ant-btn-block' style={{ marginTop: 16 }}
+              >Edit Event</a>
+            }
+            {
+              (isCreator && data.tickets.length > 0) &&
               <Button type="primary" block style={{ marginTop: 16 }} onClick={handleOpenModalAttendees}>See Attendees List</Button>
             }
             {

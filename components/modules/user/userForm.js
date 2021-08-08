@@ -89,6 +89,8 @@ function UserForm(props) {
         formData.append("refId", data.id); //id of content type
         formData.append("field", "userAvatar"); //name of key for the content type
 
+        console.log('frmData', formData)
+
         setImageUrl(imageUrl)
         axios.post(`upload`, formData, {
           headers: {

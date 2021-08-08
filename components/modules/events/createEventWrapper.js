@@ -4,34 +4,156 @@ import BasicInfoForm from './create-form/basicInfoForm'
 import ImageEventForm from './create-form/imageEventForm'
 import LocationEventForm from './create-form/locationEventForm'
 import DateTimeForm from './create-form/dateTimeForm'
+import { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/client'
 import {Link} from 'react-scroll'
 import { Row, Col, Form, Button } from 'antd'
+import { mutate } from 'swr'
+import axios from 'axios'
 import moment from 'moment'
+import Context from 'libs/context/context'
 import { ProfileOutlined, PictureOutlined, EnvironmentOutlined, CalendarOutlined } from '@ant-design/icons'
 import cx from 'classnames'
 import s from './createEventWrapper.module.less'
 
-function CreateEventWrapper() {
+function CreateEventWrapper(props) {
+  // const { dataEvent, loading: loadingEvent } = props
+  const { 
+    eventData
+  } = Context.useContainer()
+  const data = eventData && eventData[0]
+  console.log(data)
+
+  const [ session, loading ] = useSession()
+
+  const [loadingData, setLoadingData] = useState(false)
   const [form] = Form.useForm()
 
   const dateFormat = 'YYYY-MM-DD'
-  const timeFormat = 'HH:mm'
+  const timeFormat = 'HH:mm:ss.SSS'
 
-  const onFinish = (values) => {
+  const onCreate = (formData) => {
+    console.log('onCreate')
+    setLoadingData(true)
+    axios.post(`events`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(result => {
+      console.log('res', result)
+    })
+    .catch(err => {
+      console.log('err', err)
+    })
+    setLoadingData(false)
+  }
+
+  const onUpdate = (formData) => {
+    console.log('onUpdate')
+    const eventId = data.id
+    setLoadingData(true)
+    axios.put(`events/${eventId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(result => {
+      console.log('res', result)
+      mutate(`/events/${eventId}`)
+    })
+    .catch(err => {
+      console.log('err', err)
+    })
+    setLoadingData(false)
+  }
+
+  useEffect(() => {
+    if(data) {
+      // const dateStart = moment(data.dateStart).format(dateFormat)
+      // const dateEnd = moment(data.dateEnd).format(dateFormat)
+      // const timeStart = moment(data.timeStart).format('HH:mm')
+      // const timeEnd = moment(data.timeEnd).format('HH:mm')
+
+      form.setFieldsValue({
+        eventTitle: data.title,
+        eventCategory: data.category.id,
+        eventDescription: data.description,
+        eventContactPerson: data.contactPerson,
+        eventParticipant: data.limitAttendees,
+        switchOnlineEvent: data.isOnlineEvent,
+        eventPlaceName: data.locationName,
+        eventAddress: data.locationAddress,
+        eventPlaceUrl: data.locationUrl,
+        eventStreamUrl: data.onlineUrl,
+        dateStart: moment(data.dateStart),
+        dateEnd: moment(data.dateEnd),
+        timeStart: moment(data.timeStart, 'HH:mm'),
+        timeEnd: moment(data.timeEnd, 'HH:mm'),
+      })
+    }
+  }, [data])
+
+  const onFinish = (values, status) => {
     console.log('Success:', values)
-    console.log('DS:', moment(values.dateStart).format(dateFormat))
+    console.log('status:', status)
+    const dateStart = moment(values.dateStart).format(dateFormat)
+    const dateEnd = moment(values.dateEnd).format(dateFormat)
+    const timeStart = moment(values.timeStart).format(timeFormat)
+    const timeEnd = moment(values.timeEnd).format(timeFormat)
+    const isOnlineEvent = values.eventStreamUrl ? true : false
+
+    const dataForm = { 
+      title: values.eventTitle,
+      category: {
+        id: values.eventCategory
+      },
+      description: values.eventDescription,
+      contactPerson: values.eventContactPerson,
+      limitAttendees: values.eventParticipant,
+      isOnlineEvent: isOnlineEvent,
+      locationName: values.eventPlaceName ? values.eventPlaceName : null,
+      locationAddress: values.eventAddress ? values.eventAddress : null,
+      locationUrl: values.eventPlaceUrl ? values.eventPlaceUrl : null,
+      onlineUrl: values.eventStreamUrl ? values.eventStreamUrl : null,
+      dateStart: dateStart,
+      dateEnd: dateEnd,
+      timeStart: timeStart,
+      timeEnd: timeEnd,
+      status: status,
+      creator: {
+        id: session.id
+      },
+    }
+
+    const image = values.imageEvent && values.imageEvent[0]
+    const formData = new FormData();
+    if (image) {
+      formData.append('files.cover', image.originFileObj)
+      formData.append('data', JSON.stringify(dataForm))
+    } else {
+      formData.append('data', JSON.stringify(dataForm))
+    }
+    console.log('frm', formData)
+
+    if (data && data.id) {
+      onUpdate(formData)
+    } else {
+      onCreate(formData)
+    }
+    
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
   };
 
-  const onSaveForm = () => {
+  const onSaveForm = (status) => {
     form
       .validateFields()
       .then((values) => {
         // form.resetFields();
-        onFinish(values);
+        onFinish(values, status);
       })
       .catch((info) => {
         console.log('Validate Failed:', info);
@@ -116,16 +238,34 @@ function CreateEventWrapper() {
                 </Col>
               </Row>
               <Row gutter={16} justify='end'>
-                <Col xs={24} md={4}>
-                  <Button onClick={onSaveForm} block>
-                    Save
-                  </Button>
-                </Col>
-                <Col xs={24} md={4}>
-                  <Button type='primary' onClick={onSaveForm} block>
-                    Publish
-                  </Button>
-                </Col>
+                {
+                  data.status === 'published' ?
+                  <>
+                    <Col xs={24} md={4}>
+                      <Button onClick={() => onSaveForm('draft')} block>
+                        Save to draft
+                      </Button>
+                    </Col>
+                    <Col xs={24} md={4}>
+                      <Button type='primary' onClick={() => onSaveForm('published')} block>
+                        Save and publish
+                      </Button>
+                    </Col>
+                  </>
+                  :
+                  <>
+                    <Col xs={24} md={4}>
+                      <Button onClick={() => onSaveForm('draft')} block>
+                        Save, Publish later
+                      </Button>
+                    </Col>
+                    <Col xs={24} md={4}>
+                      <Button type='primary' onClick={() => onSaveForm('published')} block>
+                        Publish Now
+                      </Button>
+                    </Col>
+                  </>
+                }
               </Row>
             </div>
           </Col>

@@ -111,6 +111,7 @@ function MainHeader () {
             <Menu.Item key='login'>
               <a
                 href={`/api/auth/signin`}
+                // href={`/signin`}
                 className={s.ctaLink}
                 onClick={(e) => {
                   e.preventDefault()
