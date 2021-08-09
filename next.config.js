@@ -1,6 +1,8 @@
 const withPlugins = require('next-compose-plugins');
 const withLess = require("next-with-less");
 const withImages = require('next-images');
+const withPWA = require("next-pwa");
+const runtimeCaching = require('next-pwa/cache')
 const path = require("path");
 
 const pathToLessFileWithVariables = path.resolve("./styles/variables.less")
@@ -37,6 +39,15 @@ module.exports = withPlugins([
       additionalData: content =>`${content}\n\n@import '${pathToLessFileWithVariables}';`,
     },
   }],
+
+  [withPWA, {
+    pwa: {
+      dest: "public",
+      register: true,
+      skipWaiting: true,
+      runtimeCaching,
+    },
+  }]
 
   // [withImages, {
   //   images: {

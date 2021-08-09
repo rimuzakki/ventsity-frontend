@@ -209,23 +209,23 @@ h2 {
   width: 100%;
   margin: 0 auto;
   padding: 0 16px;
-  @media @wide-screen {
-    max-width: 1320px;
-  }
-  @media @wide-screen-down {
-    max-width: 1140px;
-  }
-  @media @desktop-down {
-    max-width: 960px;
-  }
-  @media @tablet-down {
-    max-width: 720px;
-  }
-  @media @phone-down {
-    max-width: 540px;
-  }
   @media @small-phone-down {
     max-width: 100%;
+  }
+  @media @vscreen-sm-min {
+    max-width: 540px;
+  }
+  @media @vscreen-md-min {
+    max-width: 720px;
+  }
+  @media @vscreen-lg-min {
+    max-width: 960px;
+  }
+  @media @vscreen-xl-min {
+    max-width: 1140px;
+  }
+  @media @wide-screen {
+    max-width: 1320px;
   }
 }
 
@@ -369,4 +369,7 @@ h2 {
 }
 .ant-image-preview-operations {
   background: rgba(0,0,0, 0.8);
+}
+.ant-drawer {
+  z-index: 1060;
 }

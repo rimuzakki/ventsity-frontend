@@ -22,6 +22,7 @@
     "next-compose-plugins": "^2.2.1",
     "next-images": "^1.8.1",
     "next-plugin-antd-less": "^1.2.2",
+    "next-pwa": "^5.2.24",
     "next-with-less": "^0.3.0",
     "path": "^0.12.7",
     "react": "17.0.1",

@@ -7,7 +7,7 @@ import DateTimeForm from './create-form/dateTimeForm'
 import { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/client'
 import {Link} from 'react-scroll'
-import { Row, Col, Form, Button } from 'antd'
+import { Row, Col, Form, Button, message } from 'antd'
 import { mutate } from 'swr'
 import axios from 'axios'
 import moment from 'moment'
@@ -41,10 +41,22 @@ function CreateEventWrapper(props) {
       }
     })
     .then(result => {
-      console.log('res', result)
+      // console.log('res', result)
+      message.success({
+        content: 'Event successfully created',
+        style: {
+          marginTop: 150,
+        },
+      })
     })
     .catch(err => {
       console.log('err', err)
+      message.error({
+        content: 'Failed when saving data, try again later!',
+        style: {
+          marginTop: 150,
+        },
+      })
     })
     setLoadingData(false)
   }
@@ -59,11 +71,23 @@ function CreateEventWrapper(props) {
       }
     })
     .then(result => {
-      console.log('res', result)
+      // console.log('res', result)
       mutate(`/events/${eventId}`)
+      message.success({
+        content: 'Event successfully udpated',
+        style: {
+          marginTop: 150,
+        },
+      })
     })
     .catch(err => {
       console.log('err', err)
+      message.success({
+        content: 'Failed when updating data, try again later!',
+        style: {
+          marginTop: 150,
+        },
+      })
     })
     setLoadingData(false)
   }
@@ -166,7 +190,7 @@ function CreateEventWrapper(props) {
         <TitleSection title='Create Event' />
         
         <Row justify='center'>
-          <Col span={22}>
+          <Col xs={24} md={24} lg={22}>
             <div className='cardWrapper'>
               <Row>
                 <Col xs={24} md={6}>
@@ -239,7 +263,7 @@ function CreateEventWrapper(props) {
               </Row>
               <Row gutter={16} justify='end'>
                 {
-                  data.status === 'published' ?
+                  data?.status === 'published' ?
                   <>
                     <Col xs={24} md={4}>
                       <Button onClick={() => onSaveForm('draft')} block>

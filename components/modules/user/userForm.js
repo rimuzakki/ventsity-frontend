@@ -1,10 +1,13 @@
 import { mutate } from 'swr'
-import { Row, Col, Form, Input, Button, Radio, Avatar, Image, Upload, message } from 'antd'
+import { Row, Col, Form, Input, Button, Radio, Avatar, Image, Upload, message, Grid } from 'antd'
 import { useEffect, useState } from 'react'
 import config from 'config'
 import axios from 'axios'
 
 function UserForm(props) {
+  const { useBreakpoint } = Grid
+  const { xs, sm, md } = useBreakpoint();
+
   const {data, dataSession} = props
   // console.log('d', data)
 
@@ -123,7 +126,7 @@ function UserForm(props) {
     return (
       <>
         <Row>
-          <Col sm={24} lg={16}>
+          <Col xs={24} sm={24} lg={16}>
             <Form
               form={form}
               layout='vertical'
@@ -158,7 +161,7 @@ function UserForm(props) {
                   },
                 ]}
               >
-                <Radio.Group>
+                <Radio.Group size={xs || sm && !md ? 'small' : 'middle'}>
                   <Radio.Button value="1">Male</Radio.Button>
                   <Radio.Button value="2">Female</Radio.Button>
                   <Radio.Button value="3">Not prefered</Radio.Button>
@@ -175,7 +178,7 @@ function UserForm(props) {
             </Form>
           </Col>
 
-          <Col sm={24} lg={8}>
+          <Col xs={24} sm={24} lg={8}>
             <div className='flex justify-content-center align-items-center flex-column'>
               {
                 loading ? 
@@ -212,7 +215,7 @@ function UserForm(props) {
         </Row>
         <Row>
           <Col span={24} className='flex justify-content-end'>
-            <Button type='primary' onClick={onSaveForm} loading={loadingUpdate}>
+            <Button type='primary' onClick={onSaveForm} loading={loadingUpdate} style={{ marginTop: 20 }}>
               Save
             </Button>
           </Col>
