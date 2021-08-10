@@ -3,14 +3,16 @@ import { Form, Input, Upload, message } from 'antd'
 import cx from 'classnames'
 import { UploadOutlined, InboxOutlined, PlusOutlined, LoadingOutlined } from '@ant-design/icons'
 import s from './createEvent.module.less'
+import config from 'config'
 
-function ImageEventForm() {
-
+function ImageEventForm(props) {
+  const { image } = props
+  const initImage = image ? config.api_url + image : null
   const [loading, setLoading] = useState(false)
-  const [imageUrl, setImageUrl] = useState('')
+  const [imageUrl, setImageUrl] = useState(initImage)
 
   const normFile = (e) => {
-    console.log('Upload event:', e)
+    // console.log('Upload event:', e)
 
     if (Array.isArray(e)) {
       return e;

@@ -41,42 +41,46 @@ function UpcomingEvent(props) {
       <div className={cx(s.cardEventWrapper)}>
         <Row gutter={32} className={cx('flex justify-content-center')}>
           <Col span={24}>
-            <Carousel
-              additionalTransfrom={0}
-              arrows
-              autoPlaySpeed={3000}
-              centerMode={false}
-              className='carouselWrapper'
-              containerClass="container-with-dots"
-              dotListClass=""
-              draggable
-              focusOnSelect={false}
-              infinite={false}
-              itemClass='cardEventItem'
-              keyBoardControl
-              minimumTouchDrag={80}
-              renderButtonGroupOutside={false}
-              renderDotsOutside={false}
-              responsive={responsive}
-              showDots={false}
-              sliderClass=""
-              slidesToSlide={1}
-              swipeable
-            >
-              {
-                !dataEvents &&
-                <Fallback title='No data' />
-              }
-              {
-                dataEvents?.map(c => 
-                  <CardEvent 
-                    key={c.id} 
-                    dataEvent={c} 
-                    loading={!dataEvents && !error}
-                  />
-                )
-              }
-            </Carousel>
+            {
+              (dataEvents && dataEvents.length > 0) &&
+            
+              <Carousel
+                additionalTransfrom={0}
+                arrows
+                autoPlaySpeed={3000}
+                centerMode={false}
+                className='carouselWrapper'
+                containerClass="container-with-dots"
+                dotListClass=""
+                draggable
+                focusOnSelect={false}
+                infinite={false}
+                itemClass='cardEventItem'
+                keyBoardControl
+                minimumTouchDrag={80}
+                renderButtonGroupOutside={false}
+                renderDotsOutside={false}
+                responsive={responsive}
+                showDots={false}
+                sliderClass=""
+                slidesToSlide={1}
+                swipeable
+              >
+                {
+                  !dataEvents &&
+                  <Fallback title='No data' />
+                }
+                {
+                  dataEvents?.map(c => 
+                    <CardEvent 
+                      key={c.id} 
+                      dataEvent={c} 
+                      loading={!dataEvents && !error}
+                    />
+                  )
+                }
+              </Carousel>
+            }
           </Col>
         </Row>  
       </div>

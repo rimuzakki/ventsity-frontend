@@ -8,7 +8,7 @@ function EticketWrapper(props) {
   const { dataTicket } = props
   const data = dataTicket && dataTicket[0]
   const event = data.event
-  console.log('dataTicket', data)
+  // console.log('dataTicket', data)
 
   return (
     <>

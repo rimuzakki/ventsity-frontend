@@ -17,14 +17,15 @@ function EventRegister(props) {
   const { dataEvent: data, handleOpenModalAttendees } = props
   const [ session, loadingSession ] = useSession()
   const [ loading, setLoading ] = useState(false)
+  const [ loadingReg, setLoadingReg ] = useState(false)
 
   const tickets = data.tickets
   const isUserRegistered = tickets.find(c => c.user === session?.id)
-  console.log('registered', isUserRegistered)
+  // console.log('registered', isUserRegistered)
 
   const creator = data.creator
   const isCreator = creator.id === session?.id
-  console.log('isCreator', isCreator)
+  // console.log('isCreator', isCreator)
 
   const handleRegisterSubmit = () => {
     const randomCode = Math.floor(100000 + Math.random() * 900000);
@@ -39,13 +40,16 @@ function EventRegister(props) {
         id: session.id
       }
     }
+    setLoadingReg(true)
     axios.post(`tickets`, dataPost)
     .then(result => {
       console.log('res', result)
       mutate(`events?endUrl=${data.endUrl}`)
+      setLoadingReg(false)
     })
     .catch(err => {
       console.log('err', err)
+      setLoadingReg(false)
     })
   }
 
@@ -78,7 +82,7 @@ function EventRegister(props) {
       okText: 'Register',
       cancelText: 'Cancel',
       onOk() {
-        console.log('OK')
+        // console.log('OK')
         handleRegisterSubmit()
       },
       onCancel() {
@@ -235,6 +239,7 @@ function EventRegister(props) {
                 block 
                 style={{ marginTop: 16 }}
                 onClick={handleRegisterEvent}
+                loading={loadingReg}
               >
                 REGISTER NOW
               </Button>

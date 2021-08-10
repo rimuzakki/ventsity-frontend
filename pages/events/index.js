@@ -203,7 +203,7 @@ const dataEvents = [
 function Event() {
   const router = useRouter()
   const query = router.query
-  console.log(query);
+  // console.log(query);
 
   const [ pageIndex, setPageIndex ] = useState(0)
   const [ pageSize, setPageSize ] = useState(10)

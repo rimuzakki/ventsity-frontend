@@ -13,7 +13,7 @@ function EventDetail(props) {
   const [ isModalVisible, setIsModalVisible ] = useState(false)
   const { dataEvent, loading } = props
   const data = dataEvent && dataEvent[0]
-  console.log('dataEvent', data)
+  // console.log('dataEvent', data)
 
   const path = data.cover ? data.cover.url : null
   const coverUrl = path !== null ? config.api_url + path : 'http://localhost:3004/assets/image-placeholder.png'

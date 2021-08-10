@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react'
 import { Form, Input, Switch } from 'antd'
-import Context from 'libs/context/context'
+// import Context from 'libs/context/context'
 
-function LocationEventForm() {
+function LocationEventForm(props) {
+  const { isOnlineEvent } = props
+  const [onlineEvent, setOnlineEvent] = useState(isOnlineEvent)
 
-  const [onlineEvent, setOnlineEvent] = useState(false)
-
-  const { 
-    eventData
-  } = Context.useContainer()
-  const data = eventData && eventData[0]
+  // const { 
+  //   eventData
+  // } = Context.useContainer()
+  // const data = eventData && eventData[0]
 
   const handleChangeSwitch = (checked) => {
-    console.log(`switch to ${checked}`)
+    // console.log(`switch to ${checked}`)
     setOnlineEvent(checked)
   }
 
-  useEffect(() => {
-    setOnlineEvent(data?.isOnlineEvent)
-  }, [data])
+  // useEffect(() => {
+  //   setOnlineEvent(data?.isOnlineEvent)
+  // }, [data])
 
   const viewOnlineEvent = () => {
     return (

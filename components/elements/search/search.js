@@ -14,7 +14,7 @@ function Search() {
 
   const handleChangeInput = (e) => {
     setSearchValue(e.target.value)
-    console.log('va', e.target.value)
+    // console.log('va', e.target.value)
   }
 
   return (

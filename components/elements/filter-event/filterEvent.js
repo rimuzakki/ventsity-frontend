@@ -18,12 +18,12 @@ function FilterEvent() {
     filterCategoryValue, setFilterCategoryValue
   } = Context.useContainer()
 
-  console.log('category', filterCategoryValue)
+  // console.log('category', filterCategoryValue)
 
 
   const onChangeFilterDate = (date, dateString) => {
     const dateStringValue = dateString === '' ? null : dateString
-    console.log(date, dateString, dateStringValue)
+    // console.log(date, dateString, dateStringValue)
     setDatePickerValue(date)
     setFilterDateValue(dateStringValue)
   }

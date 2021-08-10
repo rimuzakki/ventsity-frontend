@@ -17,11 +17,12 @@ import cx from 'classnames'
 import s from './createEventWrapper.module.less'
 
 function CreateEventWrapper(props) {
-  // const { dataEvent, loading: loadingEvent } = props
+  const { dataEvent, loading: loadingEvent } = props
   const { 
     eventData
   } = Context.useContainer()
-  const data = eventData && eventData[0]
+  // const data = eventData && eventData[0]
+  const data = dataEvent && dataEvent[0]
   console.log(data)
 
   const [ session, loading ] = useSession()
@@ -33,7 +34,7 @@ function CreateEventWrapper(props) {
   const timeFormat = 'HH:mm:ss.SSS'
 
   const onCreate = (formData) => {
-    console.log('onCreate')
+    // console.log('onCreate')
     setLoadingData(true)
     axios.post(`events`, formData, {
       headers: {
@@ -62,7 +63,7 @@ function CreateEventWrapper(props) {
   }
 
   const onUpdate = (formData) => {
-    console.log('onUpdate')
+    // console.log('onUpdate')
     const eventId = data.id
     setLoadingData(true)
     axios.put(`events/${eventId}`, formData, {
@@ -119,8 +120,8 @@ function CreateEventWrapper(props) {
   }, [data])
 
   const onFinish = (values, status) => {
-    console.log('Success:', values)
-    console.log('status:', status)
+    // console.log('Success:', values)
+    // console.log('status:', status)
     const dateStart = moment(values.dateStart).format(dateFormat)
     const dateEnd = moment(values.dateEnd).format(dateFormat)
     const timeStart = moment(values.timeStart).format(timeFormat)
@@ -158,7 +159,7 @@ function CreateEventWrapper(props) {
     } else {
       formData.append('data', JSON.stringify(dataForm))
     }
-    console.log('frm', formData)
+    // console.log('frm', formData)
 
     if (data && data.id) {
       onUpdate(formData)
@@ -242,14 +243,18 @@ function CreateEventWrapper(props) {
                         <PictureOutlined />
                         <h3>Image Event</h3>
                       </div>
-                      <ImageEventForm />
+                      <ImageEventForm
+                        image={data?.cover.url}
+                      />
                     </div>
                     <div id='locationSection' className={s.sectionForm}>
                       <div className={cx('flex', s.formTitle)}>
                         <EnvironmentOutlined />
                         <h3>Location</h3>
                       </div>
-                      <LocationEventForm />
+                      <LocationEventForm 
+                        isOnlineEvent={data?.isOnlineEvent}
+                      />
                     </div>
                     <div id='dateTimeSection' className={s.sectionForm}>
                       <div className={cx('flex', s.formTitle)}>

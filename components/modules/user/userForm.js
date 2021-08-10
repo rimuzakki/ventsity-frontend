@@ -20,7 +20,7 @@ function UserForm(props) {
   const [form] = Form.useForm()
 
   const onFinish = (values) => {
-    console.log('Success:', values)
+    // console.log('Success:', values)
     setLoadingUpdate(true)
     axios.put(`users/${data.id}`, {
       fullName: values.fullname,
@@ -29,7 +29,7 @@ function UserForm(props) {
       address: values.address
     })
       .then(result => {
-        console.log('res', result)
+        // console.log('res', result)
         message.success('Data user updated')
       })
       .catch(err => {
@@ -92,7 +92,7 @@ function UserForm(props) {
         formData.append("refId", data.id); //id of content type
         formData.append("field", "userAvatar"); //name of key for the content type
 
-        console.log('frmData', formData)
+        // console.log('frmData', formData)
 
         setImageUrl(imageUrl)
         axios.post(`upload`, formData, {

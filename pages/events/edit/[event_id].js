@@ -34,7 +34,7 @@ function EditEventPage() {
       {
         (data && data.length > 0) &&
         <CreateEventWrapper
-          dataEvent={data[0]}
+          dataEvent={data}
           loading={!data && !error}
         />
       }
