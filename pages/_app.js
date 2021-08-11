@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps, session }) {
   const protectedRoutes = ['/user', '/my-events', '/my-tickets', '/events/create', '/events/edit', '/eticket']
 
   // console.log('session', session)
-  const { asPath } = useRouter()
+  const { asPath, pathname } = useRouter()
 
   axios.defaults.baseURL = config.api_url;
   axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps, session }) {
           session={session} 
         >
           {
-            asPath === '/' || asPath === '/#' ?
+            pathname === '/' || pathname === '/#' ?
             <Component {...pageProps} />
             :
             <PrivateRoute protectedRoutes={protectedRoutes}>
