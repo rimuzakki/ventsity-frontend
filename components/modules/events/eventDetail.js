@@ -16,7 +16,7 @@ function EventDetail(props) {
   // console.log('dataEvent', data)
 
   const path = data.cover ? data.cover.url : null
-  const coverUrl = path !== null ? config.api_url + path : 'http://localhost:3004/assets/image-placeholder.png'
+  const coverUrl = path !== null ? config.api_url + path : 'http://ventsity.rimuzakki.com/assets/image-placeholder.png'
 
   const handleOpenModalAttendees = () => {
     setIsModalVisible(true)
