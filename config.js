@@ -1,5 +1,5 @@
 const config = {
-  api_url: 'http://116.193.190.37:1337'
+  api_url: 'https://ventsity-backend.herokuapp.com'
 }
 
 export default config;
