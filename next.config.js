@@ -12,7 +12,7 @@ const nextConfig = {
     webpack5: true,
   },
   images: {
-    domains: ['localhost', 'ventsity.vercel.app'],
+    domains: ['localhost', 'ventsity-backend.herokuapp.com'],
   },
 }
 
